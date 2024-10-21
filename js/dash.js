@@ -107,6 +107,88 @@ function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString('en-IN', options);
 }
 
+// Data management functions
+function exportData() {
+    const data = {
+        items: JSON.parse(localStorage.getItem('items')) || [],
+        salesData: JSON.parse(localStorage.getItem('salesData')) || []
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `trishul-erp-backup-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function importData(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            
+            // Validate data structure
+            if (!Array.isArray(data.items) || !Array.isArray(data.salesData)) {
+                throw new Error('Invalid data format');
+            }
+            
+            // Store the data
+            localStorage.setItem('items', JSON.stringify(data.items));
+            localStorage.setItem('salesData', JSON.stringify(data.salesData));
+            
+            // Refresh dashboard
+            initDashboard();
+            
+            // Show success message
+            showNotification('Data imported successfully!', 'success');
+        } catch (error) {
+            showNotification('Error importing data. Please check the file format.', 'error');
+        }
+    };
+    reader.readAsText(file);
+}
+
+function resetData() {
+    if (confirm('Are you sure you want to reset all data? This action cannot be undone.')) {
+        localStorage.removeItem('items');
+        localStorage.removeItem('salesData');
+        items = [];
+        salesData = [];
+        initDashboard();
+        showNotification('All data has been reset.', 'success');
+    }
+}
+
+// Notification function
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+    } shadow-lg z-50 transition-opacity duration-500`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 500);
+    }, 3000);
+}
+
+// File input handling
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (file) {
+        importData(file);
+    }
+}
+
 // Initialize dashboard
 initDashboard();
 

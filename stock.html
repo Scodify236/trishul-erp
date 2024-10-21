@@ -18,17 +18,20 @@
         <aside id="sidebar" class="fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white p-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
             <h1 class="text-2xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Trishul-ERP</h1>
             <nav class="space-y-4">
-                <div class="p-3 rounded-lg bg-gray-800 cursor-pointer hover:bg-gray-700">
+                <div class="block p-3 rounded-lg bg-indigo-900 mb-2">
                     <i class="fas fa-box-open mr-2"></i> Inventory
                 </div>
-                <a class="p-3 rounded-lg bg-green-600 hover:bg-green-700 flex items-center cursor-pointer transition duration-300" href="bill.html">
+                <a class="block p-3 rounded-lg bg-indigo-900 mb-2" href="index.html">
+                    <i class="fas fa-chart-line mr-2"></i> Dashboard
+                </a>
+                <a class="block p-3 rounded-lg bg-indigo-900 mb-2" href="bill.html">
                     <i class="fas fa-cash-register mr-2"></i> Sell Items
                 </a>
                 <div class="flex space-x-2 mt-4">
-                    <button id="exportBtn" class="w-1/2 p-2 rounded-lg bg-blue-600 hover:bg-blue-700">
+                    <button id="exportBtn" class="w-1/2 p-2 rounded-lg bg-blue-600 hover:bg-green-700">
                         <i class="fas fa-download mr-1"></i> Export
                     </button>
-                    <button id="importBtn" class="w-1/2 p-2 rounded-lg bg-green-600 hover:bg-green-700">
+                    <button id="importBtn" class="w-1/2 p-2 rounded-lg bg-blue-600 hover:bg-green-700">
                         <i class="fas fa-upload mr-1"></i> Import
                     </button>
                 </div>

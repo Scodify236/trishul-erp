@@ -146,6 +146,31 @@ function saveAndGenerateBill(e) {
     const gstAmount = subtotal * (gstPercent / 100);
     const grandTotal = subtotal + gstAmount;
 
+    // Create sales record
+    const salesRecord = {
+        billNo: Date.now().toString(),
+        date: new Date().toISOString(),
+        items: billItems.map(item => ({
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            discountPercent: item.discountPercent,
+            additionalFee: item.additionalFee,
+            totalPrice: item.totalPrice
+        })),
+        subtotal: subtotal,
+        gstPercent: gstPercent,
+        gstAmount: gstAmount,
+        grandTotal: grandTotal
+    };
+
+    // Save to localStorage
+    let salesData = JSON.parse(localStorage.getItem('salesData')) || [];
+    salesData.push(salesRecord);
+    localStorage.setItem('salesData', JSON.stringify(salesData));
+
+    // Continue with the existing bill generation code...
     const billContent = `
         <div class="space-y-4">
             <h3 class="text-xl font-bold text-indigo-600 mb-4">Bill Details</h3>
@@ -176,8 +201,11 @@ function saveAndGenerateBill(e) {
     toggleModal(saveBillModal, false);
     toggleModal(billPreviewModal, true);
 
+    // Clear bill items after saving
+    billItems = [];
+    updateBillSummary();
     saveItems();
-    showNotification('Bill generated successfully!', 'success');
+    showNotification('Bill generated and saved successfully!', 'success');
 }
 
 function downloadBillPdf() {

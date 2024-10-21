@@ -28,10 +28,10 @@ function updateSalesStats() {
     
     // Calculate total sales
     const totalSales = salesData.reduce((total, sale) => total + sale.grandTotal, 0);
-    
+
     // Calculate total purchase
-    const totalPurchase = items.reduce((total, item) => {
-        return total + (item.costPrice || 0) * item.quantity;
+const totalPurchase = items.reduce((total, item) => {
+    return total + (item.costPrice || 0) * item.quantity;
     }, 0);
     
     // Calculate overall profit
@@ -43,8 +43,17 @@ function updateSalesStats() {
     }, 0);
     
     const overallProfit = totalSales - totalCost;
-    
-    // Update DOM
+
+    // In your updateSalesStats() function, add these lines:
+
+// Calculate total purchase at MRP
+const totalPurchaseMRP = items.reduce((total, item) => {
+    return total + (item.mrp || 0) * item.quantity;
+}, 0);
+
+// Update the DOM element
+    const totalPurchaseMRPElement = document.getElementById('totalPurchaseOnMRP');
+    totalPurchaseMRPElement.textContent = `₹${totalPurchaseMRP.toFixed(2)}`;
     todaySalesElement.textContent = `₹${todaySales.toFixed(2)}`;
     totalSalesElement.textContent = `₹${totalSales.toFixed(2)}`;
     totalPurchaseElement.textContent = `₹${totalPurchase.toFixed(2)}`;

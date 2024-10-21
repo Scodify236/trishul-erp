@@ -1,173 +1,149 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S-CODE Stock Manager Pro</title>
-    <script src="js/csc.js"></script>
+    <title>Trishul ERP - Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="js/css.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gray-100">
-    <div class="min-h-screen">
-        <!-- Mobile Menu Button -->
-        <button id="mobileMenuBtn" class="lg:hidden fixed top-4 left-4 z-50 bg-gray-900 text-white p-2 rounded-lg">
-            <i class="fas fa-bars"></i>
+    <!-- Mobile Header (visible on small screens) -->
+    <div class="lg:hidden bg-indigo-800 text-white p-4 flex items-center justify-between">
+        <h1 class="text-xl font-bold">Trishul ERP</h1>
+        <button id="menuToggle" class="text-white focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
         </button>
+    </div>
 
-        <!-- Sidebar -->
-        <aside id="sidebar" class="fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white p-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
-            <h1 class="text-2xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Trishul-ERP</h1>
-            <nav class="space-y-4">
-                <div class="p-3 rounded-lg bg-gray-800 cursor-pointer hover:bg-gray-700">
-                    <i class="fas fa-box-open mr-2"></i> Inventory
-                </div>
-                <a class="p-3 rounded-lg bg-green-600 hover:bg-green-700 flex items-center cursor-pointer transition duration-300" href="bill.html">
-                    <i class="fas fa-cash-register mr-2"></i> Sell Items
+    <div class="flex h-screen">
+        <!-- Sidebar (hidden on mobile by default) -->
+        <div id="sidebar" class="bg-indigo-800 text-white w-64 flex-shrink-0 hidden lg:flex flex-col transform transition-transform duration-300 fixed lg:relative h-full">
+            <div class="p-4 lg:block hidden">
+                <h1 class="text-2xl font-bold">Trishul ERP</h1>
+            </div>
+            <nav class="flex-1 p-4">
+                <a href="#" class="block p-3 rounded-lg bg-indigo-900 mb-2">
+                    <i class="fas fa-chart-line mr-2"></i>Dashboard
                 </a>
-                <div class="flex space-x-2 mt-4">
-                    <button id="exportBtn" class="w-1/2 p-2 rounded-lg bg-blue-600 hover:bg-blue-700">
-                        <i class="fas fa-download mr-1"></i> Export
-                    </button>
-                    <button id="importBtn" class="w-1/2 p-2 rounded-lg bg-green-600 hover:bg-green-700">
-                        <i class="fas fa-upload mr-1"></i> Import
-                    </button>
-                </div>
-                <input type="file" id="importFile" class="hidden" accept=".json">
+                <a href="stock.html" class="block p-3 rounded-lg hover:bg-indigo-700 mb-2">
+                    <i class="fas fa-box mr-2"></i>Manage Stock
+                </a>
+                <a href="bill.html" class="block p-3 rounded-lg hover:bg-indigo-700 mb-2">
+                    <i class="fas fa-file-invoice mr-2"></i>Billing
+                </a>
             </nav>
-        </aside>
+        </div>
 
         <!-- Main Content -->
-        <main class="lg:ml-64 p-4 lg:p-8 mt-16 lg:mt-0">
-            <div class="mb-6 flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4">
-                <div class="flex-1 relative w-full">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                    <input type="text" id="searchInput" placeholder="Search items..." class="w-full pl-10 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                </div>
-                <div class="flex space-x-2 w-full lg:w-auto">
-                    <button id="addItemBtn" class="flex-1 lg:flex-none bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition duration-300 flex items-center justify-center">
-                        <i class="fas fa-plus mr-2"></i> Add Item
-                    </button>
-                    <a class="flex-1 lg:flex-none bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-300 flex items-center justify-center" href="/bill">
-                        <i class="fas fa-cash-register mr-2"></i> Sell
-                    </a>
-                </div>
-            </div>
+        <div class="flex-1 overflow-auto w-full">
+            <header class="bg-white shadow p-4">
+                <h2 class="text-xl font-semibold">Dashboard Overview</h2>
+            </header>
 
-            <div id="itemList" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6"></div>
-        </main>
-    </div>
+            <main class="p-4 lg:p-6">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6">
+                    <div class="bg-white rounded-lg shadow p-4 lg:p-6">
+                        <h3 class="text-gray-500 text-sm font-semibold mb-2">Today's Sales</h3>
+                        <div class="flex items-center">
+                            <span class="text-xl lg:text-2xl font-bold" id="todaySales">₹0</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4 lg:p-6">
+                        <h3 class="text-gray-500 text-sm font-semibold mb-2">Total Sales</h3>
+                        <div class="flex items-center">
+                            <span class="text-xl lg:text-2xl font-bold" id="totalSales">₹0</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4 lg:p-6">
+                        <h3 class="text-gray-500 text-sm font-semibold mb-2">Total Purchase</h3>
+                        <div class="flex items-center">
+                            <span class="text-xl lg:text-2xl font-bold" id="totalPurchase">₹0</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4 lg:p-6">
+                        <h3 class="text-gray-500 text-sm font-semibold mb-2">Overall Profit</h3>
+                        <div class="flex items-center">
+                            <span class="text-xl lg:text-2xl font-bold" id="overallProfit">₹0</span>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Add Item Modal -->
-    <div id="addItemModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-800">Add New Item</h2>
-                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <form id="addItemForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Item Name *</label>
-                    <input type="text" id="name" name="name" required="" class="mt-1 w-full p-2 border rounded-lg">
+                <!-- Tables with horizontal scroll on mobile -->
+                <div class="bg-white rounded-lg shadow mb-6">
+                    <div class="p-4 border-b">
+                        <h3 class="text-lg font-semibold">Items Expiring Soon</h3>
+                    </div>
+                    <div class="p-2 lg:p-4">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Item Name</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Expiry Date</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quantity</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Days Left</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="expiringItems" class="divide-y">
+                                    <!-- Items will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">MRP (₹) *</label>
-                    <input type="number" id="mrp" name="mrp" step="0.01" required="" class="mt-1 w-full p-2 border rounded-lg">
+
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b">
+                        <h3 class="text-lg font-semibold">Recent Sales</h3>
+                    </div>
+                    <div class="p-2 lg:p-4">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Bill No</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Items</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentSales" class="divide-y">
+                                    <!-- Sales will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Manufacturing Date</label>
-                    <input type="date" id="manufacturingDate" name="manufacturingDate" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Expiry Date</label>
-                    <input type="date" id="expiryDate" name="expiryDate" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Cost Price (₹)</label>
-                    <input type="number" id="costPrice" name="costPrice" step="0.01" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Quantity *</label>
-                    <input type="number" id="quantity" name="quantity" required="" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div class="flex space-x-3">
-                    <button type="submit" class="flex-1 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Add Item</button>
-                    <button type="button" class="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300" onclick="addItemModal.classList.replace('flex', 'hidden')">Cancel</button>
-                </div>
-            </form>
+            </main>
         </div>
     </div>
 
-    <!-- Edit Item Modal -->
-    <div id="editItemModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-800">Edit Item</h2>
-                <button id="closeEditModal" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <form id="editItemForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Item Name *</label>
-                    <input type="text" id="editName" name="name" required="" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">MRP (₹) *</label>
-                    <input type="number" id="editMrp" name="mrp" step="0.01" required="" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Manufacturing Date</label>
-                    <input type="date" id="editManufacturingDate" name="manufacturingDate" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Expiry Date</label>
-                    <input type="date" id="editExpiryDate" name="expiryDate" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Cost Price (₹)</label>
-                    <input type="number" id="editCostPrice" name="costPrice" step="0.01" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Quantity *</label>
-                    <input type="number" id="editQuantity" name="quantity" required="" class="mt-1 w-full p-2 border rounded-lg">
-                </div>
-                <div class="flex space-x-3">
-                    <button type="submit" class="flex-1 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Update</button>
-                    <button type="button" id="deleteItemBtn" class="flex-1 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Delete</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script src="js/app.js"></script>
     <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const sidebar = document.getElementById('sidebar');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
+        // Mobile menu toggle functionality
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('fixed');
+            sidebar.classList.toggle('top-0');
+            sidebar.classList.toggle('left-0');
+            sidebar.classList.toggle('z-50');
         });
 
         // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth < 1024) {  // lg breakpoint
-                if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                    sidebar.classList.add('-translate-x-full');
-                }
-            }
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 1024) {  // lg breakpoint
-                sidebar.classList.remove('-translate-x-full');
-            } else {
-                sidebar.classList.add('-translate-x-full');
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+            
+            if (!sidebar.contains(event.target) && !menuToggle.contains(event.target) && !sidebar.classList.contains('hidden') && window.innerWidth < 1024) {
+                sidebar.classList.add('hidden');
             }
         });
     </script>
-
-</body></html>
+    <script src="js/dash.js"></script>
+</body>
+</html>

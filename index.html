@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +9,32 @@
     <script src="js/css.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            'bg': '#1a1a1a',
+                            'card': '#2d2d2d',
+                            'hover': '#3d3d3d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Add styles for table row hover in dark mode */
+        .dark tbody tr {
+            background-color: rgba(55, 65, 81, 0.5);
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <!-- Mobile Header (visible on small screens) -->
-    <div class="lg:hidden bg-indigo-800 text-white p-4 flex items-center justify-between">
+<body class="bg-gray-100 dark:bg-dark-bg text-gray-900 dark:text-gray-100">
+    <!-- Mobile Header -->
+    <div class="lg:hidden bg-indigo-800 dark:bg-gray-900 text-white p-4 flex items-center justify-between">
         <h1 class="text-xl font-bold">Trishul ERP</h1>
         <button id="menuToggle" class="text-white focus:outline-none">
             <i class="fas fa-bars text-2xl"></i>
@@ -20,19 +42,19 @@
     </div>
 
     <div class="flex h-screen">
-        <!-- Sidebar (hidden on mobile by default) -->
-        <div id="sidebar" class="bg-indigo-800 text-white w-64 flex-shrink-0 hidden lg:flex flex-col transform transition-transform duration-300 fixed lg:relative h-full">
+        <!-- Sidebar -->
+        <div id="sidebar" class="bg-indigo-800 dark:bg-gray-900 text-white w-64 flex-shrink-0 hidden lg:flex flex-col transform transition-transform duration-300 fixed lg:relative h-full">
             <div class="p-4 lg:block hidden">
                 <h1 class="text-2xl font-bold">Trishul ERP</h1>
             </div>
             <nav class="flex-1 p-4">
-                <a href="#" class="block p-3 rounded-lg bg-indigo-900 mb-2">
+                <a href="#" class="block p-3 rounded-lg bg-indigo-900 dark:bg-gray-800 mb-2">
                     <i class="fas fa-chart-line mr-2"></i>Dashboard
                 </a>
-                <a href="stock.html" class="block p-3 rounded-lg hover:bg-indigo-700 mb-2">
+                <a href="stock.html" class="block p-3 rounded-lg hover:bg-indigo-700 dark:hover:bg-gray-700 mb-2">
                     <i class="fas fa-box mr-2"></i>Manage Stock
                 </a>
-                <a href="bill.html" class="block p-3 rounded-lg hover:bg-indigo-700 mb-2">
+                <a href="bill.html" class="block p-3 rounded-lg hover:bg-indigo-700 dark:hover:bg-gray-700 mb-2">
                     <i class="fas fa-file-invoice mr-2"></i>Billing
                 </a>
             </nav>
@@ -40,86 +62,92 @@
 
         <!-- Main Content -->
         <div class="flex-1 overflow-auto w-full">
-            <header class="bg-white shadow p-4">
+            <header class="bg-white dark:bg-dark-card shadow p-4">
                 <h2 class="text-xl font-semibold">Dashboard Overview</h2>
             </header>
 
             <main class="p-4 lg:p-6">
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-6">
-                    <div class="bg-white rounded-lg shadow p-4 lg:p-6">
-                        <h3 class="text-gray-500 text-sm font-semibold mb-2">Today's Sales</h3>
+                    <div class="bg-white dark:bg-dark-card rounded-lg shadow p-4 lg:p-6">
+                        <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold mb-2">Today's Sales</h3>
                         <div class="flex items-center">
                             <span class="text-xl lg:text-2xl font-bold" id="todaySales">₹0</span>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-4 lg:p-6">
-                        <h3 class="text-gray-500 text-sm font-semibold mb-2">Total Sales</h3>
+                    <div class="bg-white dark:bg-dark-card rounded-lg shadow p-4 lg:p-6">
+                        <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold mb-2">Total Sales</h3>
                         <div class="flex items-center">
                             <span class="text-xl lg:text-2xl font-bold" id="totalSales">₹0</span>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-4 lg:p-6">
-                        <h3 class="text-gray-500 text-sm font-semibold mb-2">Total Purchase-COST</h3>
+                    <div class="bg-white dark:bg-dark-card rounded-lg shadow p-4 lg:p-6">
+                        <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold mb-2">Total Purchase-COST</h3>
                         <div class="flex items-center">
                             <span class="text-xl lg:text-2xl font-bold" id="totalPurchase">₹0</span>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-4 lg:p-6">
-                        <h3 class="text-gray-500 text-sm font-semibold mb-2">Total Purchase-MRP</h3>
+                    <div class="bg-white dark:bg-dark-card rounded-lg shadow p-4 lg:p-6">
+                        <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold mb-2">Total Purchase-MRP</h3>
                         <div class="flex items-center">
                             <span class="text-xl lg:text-2xl font-bold" id="totalPurchaseOnMRP">₹0</span>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-4 lg:p-6">
-                        <h3 class="text-gray-500 text-sm font-semibold mb-2">Overall Profit</h3>
+                    <div class="bg-white dark:bg-dark-card rounded-lg shadow p-4 lg:p-6">
+                        <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold mb-2">Overall Profit</h3>
                         <div class="flex items-center">
                             <span class="text-xl lg:text-2xl font-bold" id="overallProfit">₹0</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tables with horizontal scroll on mobile -->
-                <div class="bg-white rounded-lg shadow mb-6">
-                    <div class="p-4 border-b">
+                <!-- Tables -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow mb-6">
+                    <div class="p-4 border-b dark:border-gray-700">
                         <h3 class="text-lg font-semibold">Items Expiring Soon</h3>
                     </div>
                     <div class="p-2 lg:p-4">
                         <div class="overflow-x-auto">
                             <table class="min-w-full">
                                 <thead>
-                                    <tr class="bg-gray-50">
-                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Item Name</th>
-                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Expiry Date</th>
-                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quantity</th>
-                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Days Left</th>
+                                    <tr class="bg-gray-50 dark:bg-gray-800">
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Item Name</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Expiry Date</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Quantity</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Days Left</th>
                                     </tr>
                                 </thead>
-                                <tbody id="expiringItems" class="divide-y">
-                                    <!-- Items will be populated here -->
+                                <tbody id="expiringItems" class="divide-y dark:divide-gray-700 bg-white dark:bg-dark-card">
+                                    <!-- Example row structure for reference -->
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-dark-hover transition-colors duration-200">
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-sm dark:text-gray-300">Sample Item</td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-sm dark:text-gray-300">2024-10-30</td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-sm dark:text-gray-300">50</td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-sm dark:text-gray-300">8</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b">
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow">
+                    <div class="p-4 border-b dark:border-gray-700">
                         <h3 class="text-lg font-semibold">Recent Sales</h3>
                     </div>
                     <div class="p-2 lg:p-4">
                         <div class="overflow-x-auto">
                             <table class="min-w-full">
                                 <thead>
-                                    <tr class="bg-gray-50">
-                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Bill No</th>
-                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Items</th>
-                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
+                                    <tr class="bg-gray-50 dark:bg-gray-800">
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Bill No</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Items</th>
+                                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total</th>
                                     </tr>
                                 </thead>
-                                <tbody id="recentSales" class="divide-y">
-                                    <!-- Sales will be populated here -->
+                                <tbody id="recentSales" class="divide-y dark:divide-gray-700 bg-white dark:bg-dark-card">
+                                    <!-- Sales rows will be populated here -->
                                 </tbody>
                             </table>
                         </div>
@@ -130,6 +158,66 @@
     </div>
 
     <script>
+        // Add this script to style dynamically added rows
+        function styleTableRows() {
+            const tables = ['expiringItems', 'recentSales'];
+            
+            tables.forEach(tableId => {
+                const tbody = document.getElementById(tableId);
+                if (tbody) {
+                    const observer = new MutationObserver((mutations) => {
+                        mutations.forEach((mutation) => {
+                            if (mutation.addedNodes.length) {
+                                mutation.addedNodes.forEach((node) => {
+                                    if (node.nodeName === 'TR') {
+                                        node.classList.add(
+                                            'hover:bg-gray-50',
+                                            'dark:hover:bg-dark-hover',
+                                            'transition-colors',
+                                            'duration-200'
+                                        );
+                                        
+                                        // Style all TD elements within the new row
+                                        node.querySelectorAll('td').forEach(td => {
+                                            td.classList.add(
+                                                'px-4',
+                                                'lg:px-6',
+                                                'py-4',
+                                                'whitespace-nowrap',
+                                                'text-sm',
+                                                'dark:text-gray-300'
+                                            );
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    
+                    observer.observe(tbody, { childList: true });
+                }
+            });
+        }
+
+        // Dark mode toggle function
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        }
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+
+        // Listen for system dark mode changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('darkMode')) {
+                document.documentElement.classList.toggle('dark', e.matches);
+            }
+        });
+
         // Mobile menu toggle functionality
         document.getElementById('menuToggle').addEventListener('click', function() {
             const sidebar = document.getElementById('sidebar');
@@ -150,7 +238,8 @@
             }
         });
 
-        
+        // Initialize table row styling
+        document.addEventListener('DOMContentLoaded', styleTableRows);
     </script>
     <script src="js/dash.js"></script>
 </body>

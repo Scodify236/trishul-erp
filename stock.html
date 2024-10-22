@@ -1,37 +1,44 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trishul-erp manager</title>
     <script src="js/css.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <link href="css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-900 text-gray-100">
     <div class="min-h-screen">
         <!-- Mobile Menu Button -->
-        <button id="mobileMenuBtn" class="lg:hidden fixed top-4 left-4 z-50 bg-gray-900 text-white p-2 rounded-lg">
+        <button id="mobileMenuBtn" class="lg:hidden fixed top-4 left-4 z-50 bg-gray-800 text-white p-2 rounded-lg">
             <i class="fas fa-bars"></i>
         </button>
 
         <!-- Sidebar -->
-        <aside id="sidebar" class="fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white p-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
+        <aside id="sidebar" class="fixed top-0 left-0 h-screen w-64 bg-gray-800 text-white p-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
             <h1 class="text-2xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Trishul-ERP</h1>
             <nav class="space-y-4">
-                <div class="block p-3 rounded-lg bg-indigo-900 mb-2">
+                <div class="block p-3 rounded-lg bg-gray-700 mb-2 hover:bg-gray-600">
                     <i class="fas fa-box-open mr-2"></i> Inventory
                 </div>
-                <a class="block p-3 rounded-lg bg-indigo-900 mb-2" href="index.html">
+                <a class="block p-3 rounded-lg bg-gray-700 mb-2 hover:bg-gray-600" href="index.html">
                     <i class="fas fa-chart-line mr-2"></i> Dashboard
                 </a>
-                <a class="block p-3 rounded-lg bg-indigo-900 mb-2" href="bill.html">
+                <a class="block p-3 rounded-lg bg-gray-700 mb-2 hover:bg-gray-600" href="bill.html">
                     <i class="fas fa-cash-register mr-2"></i> Sell Items
                 </a>
                 <div class="flex space-x-2 mt-4">
-                    <button id="exportBtn" class="w-1/2 p-2 rounded-lg bg-blue-600 hover:bg-green-700">
+                    <button id="exportBtn" class="w-1/2 p-2 rounded-lg bg-blue-600 hover:bg-blue-700">
                         <i class="fas fa-download mr-1"></i> Export
                     </button>
-                    <button id="importBtn" class="w-1/2 p-2 rounded-lg bg-blue-600 hover:bg-green-700">
+                    <button id="importBtn" class="w-1/2 p-2 rounded-lg bg-blue-600 hover:bg-blue-700">
                         <i class="fas fa-upload mr-1"></i> Import
                     </button>
                 </div>
@@ -44,7 +51,8 @@
             <div class="mb-6 flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4">
                 <div class="flex-1 relative w-full">
                     <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                    <input type="text" id="searchInput" placeholder="Search items..." class="w-full pl-10 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <input type="text" id="searchInput" placeholder="Search items..." 
+                           class="w-full pl-10 p-2 rounded-lg border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
                 <div class="flex space-x-2 w-full lg:w-auto">
                     <button id="addItemBtn" class="flex-1 lg:flex-none bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition duration-300 flex items-center justify-center">
@@ -62,41 +70,48 @@
 
     <!-- Add Item Modal -->
     <div id="addItemModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
+        <div class="bg-gray-800 p-6 rounded-lg w-full max-w-md shadow-xl">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-800">Add New Item</h2>
-                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                <h2 class="text-xl font-bold text-white">Add New Item</h2>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-200">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form id="addItemForm" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Item Name *</label>
-                    <input type="text" id="name" name="name" required="" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Item Name *</label>
+                    <input type="text" id="name" name="name" required 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">MRP (₹) *</label>
-                    <input type="number" id="mrp" name="mrp" step="0.01" required="" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">MRP (₹) *</label>
+                    <input type="number" id="mrp" name="mrp" step="0.01" required 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Manufacturing Date</label>
-                    <input type="date" id="manufacturingDate" name="manufacturingDate" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Manufacturing Date</label>
+                    <input type="date" id="manufacturingDate" name="manufacturingDate" 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Expiry Date</label>
-                    <input type="date" id="expiryDate" name="expiryDate" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Expiry Date</label>
+                    <input type="date" id="expiryDate" name="expiryDate" 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Cost Price (₹)</label>
-                    <input type="number" id="costPrice" name="costPrice" step="0.01" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Cost Price (₹)</label>
+                    <input type="number" id="costPrice" name="costPrice" step="0.01" 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Quantity *</label>
-                    <input type="number" id="quantity" name="quantity" required="" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Quantity *</label>
+                    <input type="number" id="quantity" name="quantity" required 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div class="flex space-x-3">
                     <button type="submit" class="flex-1 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Add Item</button>
-                    <button type="button" class="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300" onclick="addItemModal.classList.replace('flex', 'hidden')">Cancel</button>
+                    <button type="button" class="flex-1 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700" 
+                            onclick="addItemModal.classList.replace('flex', 'hidden')">Cancel</button>
                 </div>
             </form>
         </div>
@@ -104,37 +119,43 @@
 
     <!-- Edit Item Modal -->
     <div id="editItemModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
+        <div class="bg-gray-800 p-6 rounded-lg w-full max-w-md shadow-xl">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-800">Edit Item</h2>
-                <button id="closeEditModal" class="text-gray-500 hover:text-gray-700">
+                <h2 class="text-xl font-bold text-white">Edit Item</h2>
+                <button id="closeEditModal" class="text-gray-400 hover:text-gray-200">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form id="editItemForm" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Item Name *</label>
-                    <input type="text" id="editName" name="name" required="" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Item Name *</label>
+                    <input type="text" id="editName" name="name" required 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">MRP (₹) *</label>
-                    <input type="number" id="editMrp" name="mrp" step="0.01" required="" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">MRP (₹) *</label>
+                    <input type="number" id="editMrp" name="mrp" step="0.01" required 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Manufacturing Date</label>
-                    <input type="date" id="editManufacturingDate" name="manufacturingDate" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Manufacturing Date</label>
+                    <input type="date" id="editManufacturingDate" name="manufacturingDate" 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Expiry Date</label>
-                    <input type="date" id="editExpiryDate" name="expiryDate" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Expiry Date</label>
+                    <input type="date" id="editExpiryDate" name="expiryDate" 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Cost Price (₹)</label>
-                    <input type="number" id="editCostPrice" name="costPrice" step="0.01" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Cost Price (₹)</label>
+                    <input type="number" id="editCostPrice" name="costPrice" step="0.01" 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Quantity *</label>
-                    <input type="number" id="editQuantity" name="quantity" required="" class="mt-1 w-full p-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-200">Quantity *</label>
+                    <input type="number" id="editQuantity" name="quantity" required 
+                           class="mt-1 w-full p-2 border rounded-lg bg-gray-700 border-gray-600 text-white">
                 </div>
                 <div class="flex space-x-3">
                     <button type="submit" class="flex-1 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Update</button>
@@ -172,5 +193,5 @@
             }
         });
     </script>
-
-</body></html>
+</body>
+</html>
